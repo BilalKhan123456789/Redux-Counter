@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
+import  { inc,dec } from "./Store/Action/Action";
 
-function App() {
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+  <center>
+  <h1>Counter</h1>
+  <h1>{props.c}</h1>
+  <button onClick={()=>props.minus()}>Decreament</button>
+  <button onClick={()=>props.plus()}>Increament</button>
+
+  </center>
+  </>
   );
 }
 
-export default App;
+const get=(state)=>{
+return{
+  c:state.Count
+}}
+
+const editVal=(dispatch)=>{
+  return{
+plus:()=>dispatch(inc()),
+minus:()=>dispatch(dec())
+
+}
+}
+
+
+export default connect(get,editVal)(App)
